@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¡Vacaciones en A Coruña! 🏖️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sea: #0077b6;
+    --sea-deep: #023e8a;
+    --sun: #ffb703;
+    --coral: #fb8500;
+    --cream: #fff8ee;
+    --leaf: #588157;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(180deg, #caf0f8 0%, #fff8ee 25%);
+    color: #22333b;
+  }
+  h1, h2, h3, .title-font { font-family: 'Fredoka', sans-serif; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, var(--sea) 0%, var(--sea-deep) 100%);
+    color: white;
+    text-align: center;
+    padding: 70px 20px 110px;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    margin: 0 0 10px;
+    text-shadow: 0 3px 0 rgba(0,0,0,0.15);
+  }
+  .hero p.sub {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin: 0 0 30px;
+  }
+  .waves {
+    position: absolute;
+    bottom: -2px; left: 0; width: 100%; line-height: 0;
+  }
+  .waves svg { width: 100%; height: 60px; display: block; }
+
+  /* COUNTDOWN */
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .countdown .box {
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.35);
+    border-radius: 16px;
+    padding: 14px 18px;
+    min-width: 80px;
+    backdrop-filter: blur(4px);
+  }
+  .countdown .num {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    display: block;
+    line-height: 1;
+  }
+  .countdown .lbl {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.85;
+  }
+  .countdown.arrived .box { animation: pop 1.2s infinite; }
+  @keyframes pop { 0%,100%{transform:scale(1);} 50%{transform:scale(1.06);} }
+
+  /* SECTIONS */
+  section { max-width: 900px; margin: 0 auto; padding: 50px 20px; }
+  .section-title { text-align: center; margin-bottom: 8px; font-size: 1.9rem; color: var(--sea-deep); }
+  .section-sub { text-align: center; color: #55606b; margin-bottom: 36px; }
+
+  /* HIGHLIGHT CARDS */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+  }
+  .card {
+    background: white;
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: 0 6px 18px rgba(0,60,90,0.08);
+    border-bottom: 5px solid var(--sun);
+    transition: transform 0.2s ease;
+  }
+  .card:hover { transform: translateY(-4px); }
+  .card .emoji { font-size: 2rem; }
+  .card h3 { margin: 8px 0 6px; font-size: 1.1rem; color: var(--sea-deep); }
+  .card p { margin: 0; font-size: 0.92rem; color: #4a5560; }
+  .card.book-needed { border-bottom-color: var(--coral); }
+  .tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 3px 9px;
+    border-radius: 999px;
+    margin-top: 10px;
+  }
+  .tag.book { background: #ffe0d1; color: var(--coral); }
+  .tag.free { background: #e3f2e1; color: var(--leaf); }
+
+  /* ITINERARY ACCORDION */
+  .day {
+    background: white;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 14px rgba(0,60,90,0.07);
+    overflow: hidden;
+  }
+  .day summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.05rem;
+    color: var(--sea-deep);
+  }
+  .day summary::-webkit-details-marker { display: none; }
+  .day summary .datepill {
+    background: var(--sea);
+    color: white;
+    border-radius: 10px;
+    padding: 4px 12px;
+    font-size: 0.85rem;
+    margin-right: 14px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  .day summary .chev { transition: transform 0.2s ease; color: var(--sun); font-size: 1.3rem; }
+  .day[open] summary .chev { transform: rotate(90deg); }
+  .day .content {
+    padding: 0 22px 20px 22px;
+    color: #4a5560;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .day .content ul { padding-left: 20px; margin: 8px 0; }
+  .day .content .booking-note {
+    margin-top: 10px;
+    background: #fff4e8;
+    border-left: 4px solid var(--coral);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+  }
+
+  footer {
+    text-align: center;
+    padding: 40px 20px 60px;
+    color: #6c7a86;
+    font-size: 0.85rem;
+  }
+
+  .confetti-emoji { font-size: 1.4rem; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>¡Vacaciones en A Coruña! 🌊</h1>
+  <p class="sub">17–27 August 2026 · Patrick, Pilar &amp; Nicolas, staying with Pablo</p>
+  <div class="countdown" id="countdown">
+    <div class="box"><span class="num" id="cd-days">--</span><span class="lbl">days</span></div>
+    <div class="box"><span class="num" id="cd-hours">--</span><span class="lbl">hours</span></div>
+    <div class="box"><span class="num" id="cd-mins">--</span><span class="lbl">mins</span></div>
+    <div class="box"><span class="num" id="cd-secs">--</span><span class="lbl">secs</span></div>
+  </div>
+  <div class="waves">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="#fff8ee" d="M0,32 C240,60 480,0 720,20 C960,40 1200,60 1440,24 L1440,60 L0,60 Z"></path></svg>
+  </div>
+</div>
+
+<section>
+  <h2 class="section-title">The Highlights ✨</h2>
+  <p class="section-sub">Ten days, a boat through a wine-country canyon, open-air concerts, and as little forced fun as possible.</p>
+  <div class="cards">
+    <div class="card book-needed">
+      <div class="emoji">🚤</div>
+      <h3>Ribeira Sacra</h3>
+      <p>Catamaran through the Sil river canyon, vineyard terraces carved into the cliffs, wine tasting after.</p>
+      <span class="tag book">Book ahead</span>
+    </div>
+    <div class="card">
+      <div class="emoji">🌲</div>
+      <h3>Fragas do Eume</h3>
+      <p>Atlantic Europe's best-preserved coastal forest. Note: road to the monastery is car-free in summer, check the shuttle situation first.</p>
+      <span class="tag free">Free entry</span>
+    </div>
+    <div class="card">
+      <div class="emoji">🏛️</div>
+      <h3>Lugo &amp; Melide</h3>
+      <p>Walk the Roman wall circuit, then the best pulpo on the Camino in Melide.</p>
+      <span class="tag free">Free / lunch res. recommended</span>
+    </div>
+    <div class="card book-needed">
+      <div class="emoji">🎶</div>
+      <h3>Semana Clásica</h3>
+      <p>Free open-air orchestral concerts in Plaza de María Pita, most evenings 18–23 Aug.</p>
+      <span class="tag free">Free, just show up early</span>
+    </div>
+    <div class="card book-needed">
+      <div class="emoji">🎤</div>
+      <h3>Judeline &amp; Valeria Castro</h3>
+      <p>As Noites do Parque, Parque Santa Margarita, 26 &amp; 27 August.</p>
+      <span class="tag book">Ticketed</span>
+    </div>
+    <div class="card">
+      <div class="emoji">🏖️</div>
+      <h3>Beach days</h3>
+      <p>Skipping Riazor/Orzán crowds for Bastiagueiro, Ares, Doniños or Frouxeira instead.</p>
+      <span class="tag free">Free</span>
+    </div>
+    <div class="card">
+      <div class="emoji">📸</div>
+      <h3>MOP Foundation</h3>
+      <p>Free fashion-photography exhibitions in a converted port silo, calm and self-paced.</p>
+      <span class="tag free">Free entry</span>
+    </div>
+    <div class="card">
+      <div class="emoji">♨️</div>
+      <h3>Ourense (maybe)</h3>
+      <p>Free natural hot springs right in the city. Optional third full-day trip, if we've got the appetite for it.</p>
+      <span class="tag free">Free</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">Full Itinerary 🗓️</h2>
+  <p class="section-sub">Tap a day to open it up.</p>
+
+  <details class="day">
+    <summary><span><span class="datepill">17 Mon</span>Arrival</span><span class="chev">›</span></summary>
+    <div class="content">Fly in, settle in at Pablo's, no plans, recover from travel.</div>
+  </details>
+
+  <details class="day">
+    <summary><span><span class="datepill">18 Tue</span>Semana Clásica: Orquesta GAOS</span><span class="chev">›</span></summary>
+    <div class="content">
+      Free open-air concert, Plaza de María Pita, evening.
+      <div class="booking-note">📌 No booking, just arrive 20–30 min early for a decent spot.</div>
+    </div>
+  </details>
+
+  <details class="day">
+    <summary><span><span class="datepill">19 Wed</span>Beach day: Bastiagueiro / Ares</span><span class="chev">›</span></summary>
+    <div class="content">Sheltered, calmer water than the city beaches. Low-key, no plans needed.</div>
+  </details>
+
+  <details class="day">
+    <summary><span><span class="datepill">20 Thu</span>Fragas do Eume</span><span class="chev">›</span></summary>
+    <div class="content">
+      Old-growth Atlantic forest, Caaveiro monastery.
+      <div class="booking-note">⚠️ The access road is closed to cars 23 June – 11 Sept. Call ahead to check shuttle status: 604 926 357 / 981 080 585 / 981 080 300. Without a shuttle it's a long walk, not a stroll.</div>
+    </div>
+  </details>
+
+  <details class="day">
+    <summary><span><span class="datepill">21 Fri</span>Semana Clásica: Xove Orquestra Sinfónica</span><span class="chev">›</span></summary>
+    <div class="content">Free open-air concert, Plaza de María Pita, evening.</div>
+  </details>
+
+  <details class="day">
+    <summary><span><span class="datepill">22 Sat</span>Ribeira Sacra — boat &amp; wine</span><span class="chev">›</span></summary>
+    <div class="content">
+      Full day, ~2–2.5 hrs each way. Catamaran through the Sil canyon, vineyard terraces, wine tasting.
+      <ul>
+        <li>All-in package (boat + winery + lunch): ~€125pp, via Viajes Hemisferios</li>
+        <li>DIY: boat ticket ~€12pp, arrange your own bodega visit</li>
+      </ul>
+      <div class="booking-note">📌 Book the boat in advance, August is peak season. If DIY, call a bodega ahead too.</div>
+    </div>
+  </details>
+
+  <details class="day">
+    <summary><span><span class="datepill">23 Sun</span>Open day / Sobrado dos Monxes</span><span class="chev">›</span></summary>
+    <div class="content">
+      Working Cistercian monastery, quiet, short visit. Or just rest.
+      <div class="booking-note">📌 Church entry free, no booking. Cloisters may have a small on-site fee.</div>
+    </div>
+  </details>
+
+  <details class="day">
+    <summary><span><span class="datepill">24 Mon</span>Lugo &amp; Melide</span><span class="chev">›</span></summary>
+    <div class="content">
+      Walk the Roman wall circuit in Lugo, then lunch in Melide, some of the best pulpo on the Camino.
+      <div class="booking-note">📌 Wall walk is free, no booking. Book a table in Melide if you have a specific pulpería in mind (A Garnacha, Ezequiel), August gets busy.</div>
+    </div>
+  </details>
+
+  <details class="day">
+    <summary><span><span class="datepill">25 Tue</span>Beach day: Doniños / Frouxeira</span><span class="chev">›</span></summary>
+    <div class="content">Wilder, more open than the city beaches. Dunes, more space, fewer people.</div>
+  </details>
+
+  <details class="day">
+    <summary><span><span class="datepill">26 Wed</span>Ourense (optional) + Judeline concert</span><span class="chev">›</span></summary>
+    <div class="content">
+      Optional full day: As Burgas natural hot springs, free, plus Ourense old town.
+      Evening: Judeline, As Noites do Parque, Parque Santa Margarita.
+      <div class="booking-note">📌 Hot springs free, no booking. Concert is ticketed via Ataquilla/Ticketmaster, on sale since March, check availability soon.</div>
+    </div>
+  </details>
+
+  <details class="day">
+    <summary><span><span class="datepill">27 Thu</span>Departure + Valeria Castro concert</span><span class="chev">›</span></summary>
+    <div class="content">
+      Travel day, nothing scheduled. Valeria Castro plays the same park series this evening if timing allows.
+      <div class="booking-note">📌 Ticketed, availability was inconsistent across resellers as of last check, worth confirming before counting on it, and honestly a lot to ask of a travel day.</div>
+    </div>
+  </details>
+
+</section>
+
+<footer>
+  Built for a trip, not for production. If something looks wrong, tell Claude to fix it. 🏖️
+</footer>
+
+<script>
+  const tripStart = new Date("2026-08-17T00:00:00+02:00").getTime();
+  const el = {
+    days: document.getElementById('cd-days'),
+    hours: document.getElementById('cd-hours'),
+    mins: document.getElementById('cd-mins'),
+    secs: document.getElementById('cd-secs'),
+    wrap: document.getElementById('countdown')
+  };
+  function tick() {
+    const now = Date.now();
+    const diff = tripStart - now;
+    if (diff <= 0) {
+      el.wrap.classList.add('arrived');
+      el.days.textContent = "🎉";
+      el.hours.textContent = "¡Ya";
+      el.mins.textContent = "esta-";
+      el.secs.textContent = "mos!";
+      return;
+    }
+    const d = Math.floor(diff / (1000*60*60*24));
+    const h = Math.floor((diff / (1000*60*60)) % 24);
+    const m = Math.floor((diff / (1000*60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+    el.days.textContent = d;
+    el.hours.textContent = String(h).padStart(2,'0');
+    el.mins.textContent = String(m).padStart(2,'0');
+    el.secs.textContent = String(s).padStart(2,'0');
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+
+</body>
+</html>
