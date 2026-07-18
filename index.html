@@ -28,13 +28,12 @@
   .hero {
     position: relative;
     overflow: hidden;
-    background:
-      linear-gradient(160deg, rgba(2,62,138,0.75) 0%, rgba(0,60,90,0.85) 100%),
-      url("https://commons.wikimedia.org/wiki/Special:FilePath/Torre_de_H%C3%A9rcules_2023.jpg") center 65%/cover no-repeat;
+    background: linear-gradient(160deg, var(--sea) 0%, var(--sea-deep) 100%);
     color: white;
     text-align: center;
-    padding: 70px 20px 110px;
+    padding: 20px 20px 110px;
   }
+  .hero-art { max-width: 480px; margin: 0 auto; display: block; }
   .hero h1 {
     font-size: clamp(2rem, 6vw, 3.5rem);
     margin: 0 0 10px;
@@ -182,6 +181,26 @@
 <body>
 
 <div class="hero">
+  <svg class="hero-art" viewBox="0 0 480 220" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="400" cy="55" r="34" fill="#ffd166"/>
+    <path d="M0 150 Q60 130 120 150 T240 150 T360 150 T480 150 V220 H0 Z" fill="#00b4d8"/>
+    <path d="M0 165 Q60 148 120 165 T240 165 T360 165 T480 165 V220 H0 Z" fill="#0096c7"/>
+    <path d="M0 182 Q60 168 120 182 T240 182 T360 182 T480 182 V220 H0 Z" fill="#0077b6"/>
+    <rect x="60" y="70" width="18" height="70" fill="#f8f9fa"/>
+    <rect x="55" y="60" width="28" height="14" fill="#d1495b"/>
+    <polygon points="69,30 84,60 54,60" fill="#f8f9fa"/>
+    <rect x="60" y="90" width="18" height="10" fill="#d1495b"/>
+    <rect x="60" y="115" width="18" height="10" fill="#d1495b"/>
+    <path d="M230 120 L230 155 L290 155 L275 120 Z" fill="#f8f9fa"/>
+    <path d="M232 118 L232 155" stroke="#22333b" stroke-width="2"/>
+    <path d="M232 122 L275 122" stroke="#22333b" stroke-width="2"/>
+    <path d="M215 158 Q252 168 305 158 L295 148 Q252 156 225 148 Z" fill="#023e8a"/>
+    <path d="M340 95 Q345 85 355 88 Q358 80 366 84 Q372 80 378 88 Q386 87 386 96 Q392 100 386 106 L344 106 Q336 100 340 95 Z" fill="#f8f9fa" opacity="0.9"/>
+    <path d="M70 95 Q75 87 84 90 Q87 83 94 87 Q99 84 104 91 Q111 90 111 98 Q116 102 111 107 L74 107 Q67 102 70 95 Z" fill="#f8f9fa" opacity="0.85"/>
+    <path d="M180 160 L184 154 L188 160 Z" fill="#22333b"/>
+    <path d="M195 168 L199 162 L203 168 Z" fill="#22333b"/>
+    <path d="M155 172 L159 166 L163 172 Z" fill="#22333b"/>
+  </svg>
   <h1>¡Vacaciones en A Coruña! 🌊</h1>
   <p class="sub">17–27 August 2026 · Patrick, Pilar &amp; Nicolas, staying with Pablo</p>
   <div class="countdown" id="countdown">
@@ -336,8 +355,7 @@
 </section>
 
 <footer>
-  Built for a trip, not for production. If something looks wrong, tell Claude to fix it. 🏖️<br>
-  Header photo: Tower of Hercules, A Coruña, via <a href="https://commons.wikimedia.org/wiki/File:Torre_de_H%C3%A9rcules_2023.jpg" style="color:inherit;">Wikimedia Commons</a> (CC BY-SA 4.0)
+  Built for a trip, not for production. If something looks wrong, tell Claude to fix it. 🏖️
 </footer>
 
 <script>
